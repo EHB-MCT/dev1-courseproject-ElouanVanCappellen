@@ -3,7 +3,7 @@
 // Downloaded from p5.js github: https://github.com/processing/p5.js/blob/master/src/math/noise.js //
 // Referenced from http://mrl.nyu.edu/~perlin/noise/                                               //
 // Adapted by Peter Dickx for the DEV1 course @ Erasmushogeschool Brussel                          //
-// Which was adapted from PApplet.java                                                                       //
+// Which was adapted from PApplet.java                                                             //
 // which was adapted from toxi                                                                     //
 // which was adapted from the german demo group farbrausch                                         //
 // as used in their demo "art": http://www.farb-rausch.de/fr010src.zip                             //
@@ -79,17 +79,17 @@ export function perlinNoise(x, y = 0, z = 0) {
     rxf = scaled_cosine(xf);
     ryf = scaled_cosine(yf);
 
-    n1 = perlin[ of & PERLIN_SIZE];
-    n1 += rxf * (perlin[( of +1) & PERLIN_SIZE] - n1);
-    n2 = perlin[( of +PERLIN_YWRAP) & PERLIN_SIZE];
-    n2 += rxf * (perlin[( of +PERLIN_YWRAP + 1) & PERLIN_SIZE] - n2);
+    n1 = perlin[of & PERLIN_SIZE];
+    n1 += rxf * (perlin[(of + 1) & PERLIN_SIZE] - n1);
+    n2 = perlin[(of + PERLIN_YWRAP) & PERLIN_SIZE];
+    n2 += rxf * (perlin[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n2);
     n1 += ryf * (n2 - n1);
 
     of += PERLIN_ZWRAP;
-    n2 = perlin[ of & PERLIN_SIZE];
-    n2 += rxf * (perlin[( of +1) & PERLIN_SIZE] - n2);
-    n3 = perlin[( of +PERLIN_YWRAP) & PERLIN_SIZE];
-    n3 += rxf * (perlin[( of +PERLIN_YWRAP + 1) & PERLIN_SIZE] - n3);
+    n2 = perlin[of & PERLIN_SIZE];
+    n2 += rxf * (perlin[(of + 1) & PERLIN_SIZE] - n2);
+    n3 = perlin[(of + PERLIN_YWRAP) & PERLIN_SIZE];
+    n3 += rxf * (perlin[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n3);
     n2 += ryf * (n3 - n2);
 
     n1 += scaled_cosine(zf) * (n2 - n1);
