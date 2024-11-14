@@ -1,10 +1,10 @@
-import context from "../../scripts/context.js";
-import * as Utils from "../../scripts/utils.js";
-import * as Noise from "../scripts/noise.js"
+import context from "./scripts/context.js";
+import * as Utils from "./scripts/utils.js";
+import * as Noise from "./scripts/noise.js"
 
 let height = canvas.height;
 let width = canvas.width;
-let positionOfMoon = Utils.randomNumber(Math.PI, (2 * Math.PI));
+let positionOfMoon = Utils.degrees(200) + Math.random() * Utils.degrees(140);
 let radiusX = width / 2;
 let radiusY = (height / 12) * 9;
 
