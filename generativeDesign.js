@@ -7,14 +7,16 @@ let width = canvas.width;
 let positionOfMoon = Utils.degrees(200) + Math.random() * Utils.degrees(140);
 let radiusX = width / 2;
 let radiusY = (height / 12) * 9;
+let moonFase = Utils.randomNumber(0, 4);
 
+let stars = [];
 
 drawBackground();
-drawMoon();
+init();
 drawBackgroundMountain();
 
 
-function drawMoon() {
+function init() {
 
     let x = width / 2;
     let y = height;
@@ -22,11 +24,11 @@ function drawMoon() {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Referenced from https://medium.com/@codewithmarish/simple-elliptical-animation-with-canvas-in-javascript-19995fe8142a        //
-    // Written by Code With Marish                                                                                                  //
+    // Code written by With Marish                                                                                                  //
     // Adapted by Elouan Van Cappellen for the DEV1 course @ Erasmushogeschool Brussel course project                               //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // draws the path of the "moon".
+    // draws the path of the "moon". For testing!
     // helps to visualise if the "moon" is on the correct x & y coordinate.
     // context.strokeStyle = "red";
     // Utils.strokeEllipse(x, y, radiusX, radiusY);
@@ -37,8 +39,10 @@ function drawMoon() {
 
 
     // draws the "moon" itself
-    context.fillStyle = "#F6F1D5";
-    Utils.fillCircle(circleX, circleY, 80);
+
+    // context.fillStyle = "#F6F1D5";
+    // Utils.fillCircle(circleX, circleY, 80);
+    drawMoon(circleX, circleY);
 
     console.log(circleX);
     console.log(circleY);
@@ -57,11 +61,13 @@ function drawStars() {
     // draws dots on the background on the layer between the "sky" and the "mountains".
     for (let i = 0; i < 500; i++) {
 
-        let x = Math.random() * width;
-        let y = Math.random() * height;
+        let star = {
+            x: Math.random() * width,
+            y: Math.random() * height,
+        };
 
         context.fillStyle = "white";
-        Utils.fillCircle(x, y, 2);
+        Utils.fillCircle(star.x, star.y, 2);
     }
 }
 
@@ -84,3 +90,41 @@ function drawBackgroundMountain() {
 
     }
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Referenced from https://dev.to/gabriellend/how-to-animate-the-moon-with-the-canvas-element-2kk5                              //
+// Code written by Gabrielle Davidson                                                                                           //
+// Adapted by Elouan Van Cappellen for the DEV1 course @ Erasmushogeschool Brussel course project                               //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// functie dat kiest welke maan fase getekent word volgens de waarde van de variabele "moonFase"
+function drawMoon(x, y) {
+    context.fillStyle = "#F6F1D5";
+
+    if (moonFase == 0) {
+
+        context.beginPath();
+        context.arc(x, y, 60, (Math.PI / 180) * 40, (Math.PI / 180) * 320);
+        context.bezierCurveTo(x - 70, y - 100, x - 70, y + 100, x + 47, y + 38);
+        context.fill();
+
+    } else if (moonFase == 1) {
+
+        context.beginPath();
+        context.arc(x, y, 60, (Math.PI / 180) * 40, (Math.PI / 180) * 320);
+        context.bezierCurveTo(x - 40, y - 75, x - 40, y + 75, x + 46, y + 38);
+        context.fill();
+
+    } else if (moonFase == 2) {
+
+        context.beginPath();
+        context.arc(x, y, 60, (Math.PI / 180) * 30, (Math.PI / 180) * 330);
+        context.bezierCurveTo(x - 10, y - 40, x - 10, y + 40, x + 51, y + 32);
+        context.fill();
+
+    } else {
+
+        Utils.fillCircle(x, y, 60);
+
+    }
+}   
