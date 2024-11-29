@@ -2,6 +2,8 @@ import context from "./scripts/context.js";
 import * as Utils from "./scripts/utils.js";
 import * as Noise from "./scripts/noise.js"
 
+window.onwheel = moveMoon;
+
 let height = canvas.height;
 let width = canvas.width;
 let positionOfMoon = Utils.degrees(200) + Math.random() * Utils.degrees(140);
@@ -15,8 +17,12 @@ drawBackground();
 init();
 drawBackgroundMountain();
 
+/**
+ * @param {WheelEvent} e;
+ */
+function moveMoon() {
 
-function init() {
+    console.log(e.deltaY);
 
     let x = width / 2;
     let y = height;
@@ -127,4 +133,15 @@ function drawMoon(x, y) {
         Utils.fillCircle(x, y, 60);
 
     }
-}   
+}
+
+
+function drawStarTwinkle(x,y) {
+    context.beginPath();
+    context.moveTo(x, y + 2);
+    context.arcTo(x, y, x + 2, y, 10);
+    context.arcTo(x, y, x, y - 2, 10);
+    context.arcTo(x, y, x - 2, y, 10);
+    context.arcTo(x, y, x, y + 2, 10);
+    context.fill();
+}
