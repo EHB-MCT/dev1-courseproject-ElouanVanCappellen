@@ -11,18 +11,21 @@ let radiusX = width / 2;
 let radiusY = (height / 12) * 9;
 let moonFase = Utils.randomNumber(0, 4);
 
+
+// objecten maken voor de posities van de "sterren".
 let stars = [];
 
-drawBackground();
-init();
-drawBackgroundMountain();
+// draws the first frame.
+setup();
+// animated function.
+drawStars();
 
 /**
  * @param {WheelEvent} e;
  */
-function moveMoon() {
+function moveMoon(e) {
 
-    console.log(e.deltaY);
+
 
     let x = width / 2;
     let y = height;
@@ -50,8 +53,27 @@ function moveMoon() {
     // Utils.fillCircle(circleX, circleY, 80);
     drawMoon(circleX, circleY);
 
-    console.log(circleX);
-    console.log(circleY);
+    // console.log(circleX);
+    // console.log(circleY);
+
+    // console.log(e.deltaY);
+
+
+
+    //                                    ------------------------------------!!!  S.O.S !!!------------------------------------
+
+
+    // circleX += e.deltaY;
+    // // nakijken of de maan niet te ver is aan de linker/rechter kant is va de canvas. Resultaten zijn gebaseerd op de CircleX variabele.
+    // if (circleX <= Utils.degrees(140)) {
+    //     // up
+    //     circleX = 140;
+    // } else if (circleX >= Utils.degrees(200)) {
+    //     // down
+    //     circleX = 200
+    // }
+
+    //                                    ------------------------------------!!!  S.O.S !!!------------------------------------
 }
 
 
@@ -59,22 +81,62 @@ function drawBackground() {
     // draws a solid colored background over the whole canvas
     context.fillStyle = "#0c1445";
     context.fillRect(0, 0, width, height);
-    drawStars();
+
 
 }
 
-function drawStars() {
-    // draws dots on the background on the layer between the "sky" and the "mountains".
-    for (let i = 0; i < 500; i++) {
+// sets up the objects for the program.
+function setup() {
 
+    drawBackground();
+
+    // maakt 500 verschillende x & y waarden in het object "star"
+    for (let i = 0; i < 500; i++) {
         let star = {
             x: Math.random() * width,
             y: Math.random() * height,
         };
-
-        context.fillStyle = "white";
-        Utils.fillCircle(star.x, star.y, 2);
+        stars.push(star);
     }
+    moveMoon();
+    drawBackgroundMountain();
+
+}
+
+function drawStars() {
+
+    drawBackground();
+
+    let twinkle = true;
+
+    // draws dots on the background on the layer between the "sky" and the "mountains".
+    for (let i = 0; i < 200; i++) {
+
+    }
+
+    for (let i = 0; i < stars.length; i++) {
+
+        let star = stars[i];
+
+        if (twinkle == true) {
+            context.fillStyle = "white";
+            Utils.fillCircle(star.x, star.y, 2);
+            twinkle = false;
+        } else {
+            if (i >= 100 && i <= 150) {
+                drawStarTwinkle(star.x, star.y);
+                twinkle = false;
+            } else {
+                context.fillStyle = "white";
+                Utils.fillCircle(star.x, star.y, 2);
+            }
+        }
+
+
+    }
+    moveMoon();
+    drawBackgroundMountain();
+    requestAnimationFrame(drawStars);
 }
 
 function drawBackgroundMountain() {
@@ -136,12 +198,12 @@ function drawMoon(x, y) {
 }
 
 
-function drawStarTwinkle(x,y) {
+function drawStarTwinkle(x, y) {
     context.beginPath();
-    context.moveTo(x, y + 2);
-    context.arcTo(x, y, x + 2, y, 10);
-    context.arcTo(x, y, x, y - 2, 10);
-    context.arcTo(x, y, x - 2, y, 10);
-    context.arcTo(x, y, x, y + 2, 10);
+    context.moveTo(x, y + 1);
+    context.arcTo(x, y, x + 1, y, 7);
+    context.arcTo(x, y, x, y - 1, 7);
+    context.arcTo(x, y, x - 1, y, 7);
+    context.arcTo(x, y, x, y + 1, 7);
     context.fill();
 }
