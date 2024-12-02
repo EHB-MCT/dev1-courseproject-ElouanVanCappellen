@@ -11,6 +11,8 @@ let radiusX = width / 2;
 let radiusY = (height / 12) * 9;
 let moonFase = Utils.randomNumber(0, 4);
 
+let counter = 0;
+
 
 // objecten maken voor de posities van de "sterren".
 let stars = [];
@@ -107,25 +109,37 @@ function drawStars() {
 
     drawBackground();
 
-    let twinkle = true;
+    let twinkle = false;
 
     // draws dots on the background on the layer between the "sky" and the "mountains".
-    for (let i = 0; i < 200; i++) {
 
-    }
-
+    // werk niet als verwacht omdat hij de var twinkle elke frame vervangt
     for (let i = 0; i < stars.length; i++) {
+
+        // counter var zorgdt voor het tekenen van 500 sterren voor de volgende frame
+        // should be 500
+        if (counter >= 500) {
+            twinkle = true;
+            // should be 1000
+        } else if (counter >= 1000) {
+            twinkle = false;
+            counter = 0;
+        }
+
 
         let star = stars[i];
 
-        if (twinkle == true) {
+
+        if (twinkle == false) {
             context.fillStyle = "white";
             Utils.fillCircle(star.x, star.y, 2);
-            twinkle = false;
+            // twinkle = false;
+            counter++;
+
         } else {
             if (i >= 100 && i <= 150) {
                 drawStarTwinkle(star.x, star.y);
-                twinkle = false;
+                // twinkle = false;
             } else {
                 context.fillStyle = "white";
                 Utils.fillCircle(star.x, star.y, 2);
