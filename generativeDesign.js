@@ -93,7 +93,7 @@ function setup() {
     drawBackground();
 
     // maakt 500 verschillende x & y waarden in het object "star"
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 10; i++) {
         let star = {
             x: Math.random() * width,
             y: Math.random() * height,
@@ -118,10 +118,10 @@ function drawStars() {
 
         // counter var zorgdt voor het tekenen van 500 sterren voor de volgende frame
         // should be 500
-        if (counter >= 500) {
+        if (counter >= 5) {
             twinkle = true;
             // should be 1000
-        } else if (counter >= 1000) {
+        } else if (counter >= 10) {
             twinkle = false;
             counter = 0;
         }
@@ -137,7 +137,7 @@ function drawStars() {
             counter++;
 
         } else {
-            if (i >= 100 && i <= 150) {
+            if (i >= 4 && i <= 10) {
                 drawStarTwinkle(star.x, star.y);
                 // twinkle = false;
             } else {
