@@ -11,7 +11,8 @@ let radiusX = width / 2;
 let radiusY = (height / 12) * 9;
 let moonFase = Utils.randomNumber(0, 4);
 
-let counter = 0;
+
+let framecount = 0;
 
 
 // objecten maken voor de posities van de "sterren".
@@ -100,6 +101,7 @@ function setup() {
         let star = {
             x: Math.random() * width,
             y: Math.random() * height,
+            blink: false
         };
         stars.push(star);
     }
@@ -114,43 +116,49 @@ function drawStars() {
 
     let twinkle = false;
 
+
+
     // draws dots on the background on the layer between the "sky" and the "mountains".
+    if (framecount % 20 == 0) {
+        // werk niet als verwacht omdat hij de var twinkle elke frame vervangt
+        // for (let i = 0; i < stars.length; i++) {
 
-    // werk niet als verwacht omdat hij de var twinkle elke frame vervangt
-    for (let i = 0; i < stars.length; i++) {
-
-        if (counter < 50) {
-            if (i <= Utils.randomNumber(0, 150)) {
-                twinkle = true;
-            } else {
-                twinkle = false;
-            }
-        } else {
-            counter = 0;
-        }
-
-
-
-
-        // counter var zorgdt voor het tekenen van 500 sterren voor de volgende frame
-        // should be 500
-        // if (counter >= 5) {
-        //     twinkle = true;
-        //     // should be 1000
-        // } else if (counter >= 10) {
-        //     twinkle = false;
+        // if (counter < 50) {
+        //     if (i <= Utils.randomNumber(0, 150)) {
+        //         twinkle = true;
+        //     } else {
+        //         twinkle = false;
+        //     }
+        // } else {
         //     counter = 0;
         // }
 
+        for (let i = 0; i < stars.length; i++) {
+            stars[i].blink = false;
+        }
+
+
+        let randomStars = Utils.randomNumber(50, 100);
+
+        for (let i = 0; i < randomStars; i++) {
+
+            let iStar = Utils.randomNumber(0, 499);
+            stars[iStar].blink = true;
+
+        }
+    }
+
+
+    for (let i = 0; i < stars.length; i++) {
 
         let star = stars[i];
 
 
-        if (twinkle == false) {
+        if (star.blink == false) {
             context.fillStyle = "white";
             Utils.fillCircle(star.x, star.y, 2);
             // twinkle = false;
-            counter++;
+            // counter++;
 
         } else {
             // if (i >= 4 && i <= 10) {
@@ -164,6 +172,8 @@ function drawStars() {
 
 
     }
+
+    framecount++;
     drawMoon();
     drawBackgroundMountain();
     signature();
