@@ -11,6 +11,8 @@ let radiusX = width / 2;
 let radiusY = (height / 12) * 9;
 let moonFase = Utils.randomNumber(0, 4);
 
+// list to keep diffren durations (I need les than 500 => dont make it a part of the object "star")
+let duration = [];
 
 let framecount = 0;
 
@@ -62,24 +64,6 @@ function drawMoon() {
     // console.log(circleX);
     // console.log(circleY);
 
-
-
-
-
-    //                                    ------------------------------------!!!  S.O.S !!!------------------------------------
-
-
-    // circleX += e.deltaY;
-    // // nakijken of de maan niet te ver is aan de linker/rechter kant is va de canvas. Resultaten zijn gebaseerd op de CircleX variabele.
-    // if (circleX <= Utils.degrees(140)) {
-    //     // up
-    //     circleX = 140;
-    // } else if (circleX >= Utils.degrees(200)) {
-    //     // down
-    //     circleX = 200
-    // }
-
-    //                                    ------------------------------------!!!  S.O.S !!!------------------------------------
 }
 
 
@@ -101,73 +85,56 @@ function setup() {
         let star = {
             x: Math.random() * width,
             y: Math.random() * height,
-            blink: false
+            blink: false,
+            duration: Utils.randomNumber(50, 100)
         };
         stars.push(star);
     }
     drawMoon();
     drawBackgroundMountain();
 
+    console.log(stars);
 }
 
 function drawStars() {
 
     drawBackground();
+    for (let i = 0; i < stars.length; i++) {
 
-    let twinkle = false;
-
-
-
-    // draws dots on the background on the layer between the "sky" and the "mountains".
-    if (framecount % 20 == 0) {
-        // werk niet als verwacht omdat hij de var twinkle elke frame vervangt
-        // for (let i = 0; i < stars.length; i++) {
-
-        // if (counter < 50) {
-        //     if (i <= Utils.randomNumber(0, 150)) {
-        //         twinkle = true;
-        //     } else {
-        //         twinkle = false;
-        //     }
-        // } else {
-        //     counter = 0;
-        // }
-
-        for (let i = 0; i < stars.length; i++) {
-            stars[i].blink = false;
-        }
+        // every 25 frames change the "state" of the "stars" => blink or not
+        if (framecount % stars[i].duration == 0) {
 
 
-        let randomStars = Utils.randomNumber(50, 100);
 
-        for (let i = 0; i < randomStars; i++) {
+            for (let i = 0; i < stars.length; i++) {
+                stars[i].blink = false;
+            }
 
-            let iStar = Utils.randomNumber(0, 499);
-            stars[iStar].blink = true;
 
+            let randomStars = Utils.randomNumber(50, 100);
+
+            for (let i = 0; i < randomStars; i++) {
+
+                let iStar = Utils.randomNumber(0, 499);
+                stars[iStar].blink = true;
+
+            }
         }
     }
-
 
     for (let i = 0; i < stars.length; i++) {
 
         let star = stars[i];
 
-
+        // draws dots on the background on the layer between the "sky" and the "mountains".
         if (star.blink == false) {
             context.fillStyle = "white";
             Utils.fillCircle(star.x, star.y, 2);
-            // twinkle = false;
-            // counter++;
+
 
         } else {
-            // if (i >= 4 && i <= 10) {
             drawStarTwinkle(star.x, star.y);
-            // twinkle = false;
-            // } else {
             context.fillStyle = "white";
-            //     Utils.fillCircle(star.x, star.y, 2);
-            // }
         }
 
 
