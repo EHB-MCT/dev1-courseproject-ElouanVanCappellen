@@ -26,8 +26,11 @@ drawStars();
  * @param {WheelEvent} e;
  */
 function moveMoon(e) {
+    positionOfMoon += e.deltaY;
+    console.log(e.deltaY);
+}
 
-
+function drawMoon() {
 
     let x = width / 2;
     let y = height;
@@ -53,12 +56,12 @@ function moveMoon(e) {
 
     // context.fillStyle = "#F6F1D5";
     // Utils.fillCircle(circleX, circleY, 80);
-    drawMoon(circleX, circleY);
+    drawMoonFase(circleX, circleY);
 
     // console.log(circleX);
     // console.log(circleY);
 
-    // console.log(e.deltaY);
+
 
 
 
@@ -93,14 +96,14 @@ function setup() {
     drawBackground();
 
     // maakt 500 verschillende x & y waarden in het object "star"
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 500; i++) {
         let star = {
             x: Math.random() * width,
             y: Math.random() * height,
         };
         stars.push(star);
     }
-    moveMoon();
+    drawMoon();
     drawBackgroundMountain();
 
 }
@@ -116,15 +119,28 @@ function drawStars() {
     // werk niet als verwacht omdat hij de var twinkle elke frame vervangt
     for (let i = 0; i < stars.length; i++) {
 
-        // counter var zorgdt voor het tekenen van 500 sterren voor de volgende frame
-        // should be 500
-        if (counter >= 5) {
-            twinkle = true;
-            // should be 1000
-        } else if (counter >= 10) {
-            twinkle = false;
+        if (counter < 50) {
+            if (i <= Utils.randomNumber(0, 150)) {
+                twinkle = true;
+            } else {
+                twinkle = false;
+            }
+        } else {
             counter = 0;
         }
+
+
+
+
+        // counter var zorgdt voor het tekenen van 500 sterren voor de volgende frame
+        // should be 500
+        // if (counter >= 5) {
+        //     twinkle = true;
+        //     // should be 1000
+        // } else if (counter >= 10) {
+        //     twinkle = false;
+        //     counter = 0;
+        // }
 
 
         let star = stars[i];
@@ -137,18 +153,18 @@ function drawStars() {
             counter++;
 
         } else {
-            if (i >= 4 && i <= 10) {
-                drawStarTwinkle(star.x, star.y);
-                // twinkle = false;
-            } else {
-                context.fillStyle = "white";
-                Utils.fillCircle(star.x, star.y, 2);
-            }
+            // if (i >= 4 && i <= 10) {
+            drawStarTwinkle(star.x, star.y);
+            // twinkle = false;
+            // } else {
+            context.fillStyle = "white";
+            //     Utils.fillCircle(star.x, star.y, 2);
+            // }
         }
 
 
     }
-    moveMoon();
+    drawMoon();
     drawBackgroundMountain();
     requestAnimationFrame(drawStars);
 }
@@ -180,7 +196,7 @@ function drawBackgroundMountain() {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // functie dat kiest welke maan fase getekent word volgens de waarde van de variabele "moonFase"
-function drawMoon(x, y) {
+function drawMoonFase(x, y) {
     context.fillStyle = "#F6F1D5";
 
     if (moonFase == 0) {
