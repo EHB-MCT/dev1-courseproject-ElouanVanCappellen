@@ -166,6 +166,7 @@ function drawStars() {
     }
     drawMoon();
     drawBackgroundMountain();
+    signature();
     requestAnimationFrame(drawStars);
 }
 
@@ -236,4 +237,10 @@ function drawStarTwinkle(x, y) {
     context.arcTo(x, y, x - 1, y, 7);
     context.arcTo(x, y, x, y + 1, 7);
     context.fill();
+}
+
+function signature() {
+    context.fillStyle = "black";
+    context.font = "normal 10pt Arial"
+    context.fillText("Elouan Van Cappellen", (width - 160), (height - 20))
 }
