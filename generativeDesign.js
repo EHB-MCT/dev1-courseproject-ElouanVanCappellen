@@ -26,7 +26,7 @@ drawStars();
  * @param {WheelEvent} e;
  */
 function moveMoon(e) {
-    positionOfMoon += e.deltaY;
+    positionOfMoon += (e.deltaY / 20);
     console.log(e.deltaY);
 }
 
