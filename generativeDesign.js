@@ -1,6 +1,7 @@
 import context from "./scripts/context.js";
 import * as Utils from "./scripts/utils.js";
-import * as Noise from "./scripts/noise.js"
+import * as Noise from "./scripts/noise.js";
+// import * as SpaceInvader from "./spaceInvader.js";
 
 window.onwheel = moveMoon;
 
@@ -75,7 +76,7 @@ function drawBackground() {
 
 }
 
-// sets up the objects for the program.
+// sets up the objects for the program. Also draws the first frame/desides which "moonFase" to draw.
 function setup() {
 
     drawBackground();
@@ -93,30 +94,41 @@ function setup() {
     drawMoon();
     drawBackgroundMountain();
 
+    // filling the "duration" list with randomnumbers(x,y) that dictate the length of time of the blinking/twinkle action of the "stars".
+
+    for (let i = 0; i <= 5; i++) {
+
+        duration[i] = Utils.randomNumber(20, 50);
+
+    }
+
     console.log(stars);
+    console.log(duration);
 }
 
 function drawStars() {
 
     drawBackground();
     for (let i = 0; i < stars.length; i++) {
-
-        // every 25 frames change the "state" of the "stars" => blink or not
-        if (framecount % stars[i].duration == 0) {
-
-
-
-            for (let i = 0; i < stars.length; i++) {
-                stars[i].blink = false;
-            }
+        for (let j = 0; j <= 5; j++) {
+            // every "[duration]" frames change the "state" of the "stars" => blink or not
+            if (framecount % duration[j] == 0) {
 
 
-            let randomStars = Utils.randomNumber(50, 100);
 
-            for (let i = 0; i < randomStars; i++) {
+                for (let i = 0; i < stars.length; i++) {
+                    stars[i].blink = false;
+                }
 
-                let iStar = Utils.randomNumber(0, 499);
-                stars[iStar].blink = true;
+
+                let randomStars = Utils.randomNumber(50, 100);
+
+                for (let i = 0; i < randomStars; i++) {
+
+                    let iStar = Utils.randomNumber(0, 499);
+                    stars[iStar].blink = true;
+
+                }
 
             }
         }
@@ -127,6 +139,7 @@ function drawStars() {
         let star = stars[i];
 
         // draws dots on the background on the layer between the "sky" and the "mountains".
+        // based on the value of "blink" the stars will be drawn as "twinkels" instead of samll dots.
         if (star.blink == false) {
             context.fillStyle = "white";
             Utils.fillCircle(star.x, star.y, 2);
@@ -143,7 +156,7 @@ function drawStars() {
     framecount++;
     drawMoon();
     drawBackgroundMountain();
-    signature();
+    signature(800, 500);
     requestAnimationFrame(drawStars);
 }
 
@@ -173,7 +186,7 @@ function drawBackgroundMountain() {
 // Adapted by Elouan Van Cappellen for the DEV1 course @ Erasmushogeschool Brussel course project                               //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// functie dat kiest welke maan fase getekent word volgens de waarde van de variabele "moonFase"
+// function that choses the correct moon based on the "moonFase" VAR.
 function drawMoonFase(x, y) {
     context.fillStyle = "#F6F1D5";
 
@@ -205,6 +218,7 @@ function drawMoonFase(x, y) {
     }
 }
 
+// function that drawst the alternative "stars" 
 
 function drawStarTwinkle(x, y) {
     context.beginPath();
@@ -216,8 +230,22 @@ function drawStarTwinkle(x, y) {
     context.fill();
 }
 
-function signature() {
-    context.fillStyle = "black";
-    context.font = "normal 10pt Arial"
-    context.fillText("Elouan Van Cappellen", (width - 160), (height - 20))
+function signature(x, y) {
+
+    context.fillStyle = "#d8d97e"
+    context.fillRect(x, y, 50, 100);
+    context.fillRect(x + 200, y, 50, 100);
+    context.fillRect(x + 50, y + 50, 50, 150);
+    context.fillRect(x + 150, y + 50, 50, 150);
+    context.fillRect(x + 100, y, 50, 50);
+    context.fillRect(x + 100, y + 100, 50, 50);
+    context.fillRect(x, y + 150, 50, 50);
+    context.fillRect(x + 200, y + 150, 50, 50);
 }
+
+
+// SpaceInvader.signature();
+// context.fillStyle = "black";
+// context.font = "normal 10pt Arial"
+// context.fillText("Elouan Van Cappellen", (width - 160), (height - 20))
+// }

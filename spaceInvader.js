@@ -6,12 +6,12 @@ let context = canvas.getContext("2d");
 background();
 signature();
 
-function backGround() {
+export function backGround() {
     context.fillStyle = "black"
     context.fillRectrect(50, 50, 350, 350)
 }
 
-function signature() {
+export function signature() {
     context.fillStyle = "#d8d97e"
     context.fillRect(100, 150, 50, 100);
     context.fillRect(300, 150, 50, 100);
