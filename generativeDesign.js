@@ -96,9 +96,11 @@ function setup() {
 
     // filling the "duration" list with randomnumbers(x,y) that dictate the length of time of the blinking/twinkle action of the "stars".
 
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 10; i++) {
 
-        duration[i] = Utils.randomNumber(20, 50);
+        // 20,50 werkt zeer goed
+
+        duration[i] = Utils.randomNumber(20, 60);
 
     }
 
@@ -110,7 +112,7 @@ function drawStars() {
 
     drawBackground();
     for (let i = 0; i < stars.length; i++) {
-        for (let j = 0; j <= 5; j++) {
+        for (let j = 0; j <= 10; j++) {
             // every "[duration]" frames change the "state" of the "stars" => blink or not
             if (framecount % duration[j] == 0) {
 
@@ -156,7 +158,7 @@ function drawStars() {
     framecount++;
     drawMoon();
     drawBackgroundMountain();
-    signature(800, 500);
+    signature((width - 150), (height - 125));
     requestAnimationFrame(drawStars);
 }
 
@@ -232,15 +234,16 @@ function drawStarTwinkle(x, y) {
 
 function signature(x, y) {
 
-    context.fillStyle = "#d8d97e"
-    context.fillRect(x, y, 50, 100);
-    context.fillRect(x + 200, y, 50, 100);
-    context.fillRect(x + 50, y + 50, 50, 150);
-    context.fillRect(x + 150, y + 50, 50, 150);
-    context.fillRect(x + 100, y, 50, 50);
-    context.fillRect(x + 100, y + 100, 50, 50);
-    context.fillRect(x, y + 150, 50, 50);
-    context.fillRect(x + 200, y + 150, 50, 50);
+    context.fillStyle = "#d8d97e";
+    context.fillRect(x, y, 25, 50); // Scaled down from (100, 150, 50, 100)
+    context.fillRect(x + 100, y, 25, 50);   // Scaled down from (300, 150, 50, 100)
+    context.fillRect(x + 25, y + 25, 25, 75); // Scaled down from (150, 200, 50, 150)
+    context.fillRect(x + 75, y + 25, 25, 75); // Scaled down from (250, 200, 50, 150)
+    context.fillRect(x + 50, y, 25, 25);  // Scaled down from (200, 150, 50, 50)
+    context.fillRect(x + 50, y + 50, 25, 25); // Scaled down from (200, 250, 50, 50)
+    context.fillRect(x, y + 75, 25, 25);  // Scaled down from (100, 300, 50, 50)
+    context.fillRect(x + 100, y + 75, 25, 25); // Scaled down from (300, 300, 50, 50)
+
 }
 
 
