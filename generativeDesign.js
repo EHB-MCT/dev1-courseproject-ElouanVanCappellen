@@ -245,10 +245,3 @@ function signature(x, y) {
     context.fillRect(x + 100, y + 75, 25, 25); // Scaled down from (300, 300, 50, 50)
 
 }
-
-
-// SpaceInvader.signature();
-// context.fillStyle = "black";
-// context.font = "normal 10pt Arial"
-// context.fillText("Elouan Van Cappellen", (width - 160), (height - 20))
-// }
