@@ -1,7 +1,6 @@
 import context from "./scripts/context.js";
 import * as Utils from "./scripts/utils.js";
 import * as Noise from "./scripts/noise.js";
-// import * as SpaceInvader from "./spaceInvader.js";
 
 window.onwheel = moveMoon;
 
@@ -98,8 +97,6 @@ function setup() {
 
     for (let i = 0; i <= 10; i++) {
 
-        // 20,50 werkt zeer goed
-
         duration[i] = Utils.randomNumber(20, 60);
 
     }
@@ -120,6 +117,7 @@ function drawStars() {
 
                 for (let i = 0; i < stars.length; i++) {
                     stars[i].blink = false;
+
                 }
 
 
@@ -131,7 +129,6 @@ function drawStars() {
                     stars[iStar].blink = true;
 
                 }
-
             }
         }
     }
@@ -177,8 +174,6 @@ function drawBackgroundMountain() {
     for (let i = 0; i < width; i++) {
         let y = Noise.perlinNoise(i / 200) * 200 + 520;
         context.fillRect(i, y, 2, height);
-
-
     }
 }
 
@@ -220,7 +215,7 @@ function drawMoonFase(x, y) {
     }
 }
 
-// function that drawst the alternative "stars" 
+// Function that drawst the alternative "stars" a.k.a the "twinkles".
 
 function drawStarTwinkle(x, y) {
     context.beginPath();
@@ -233,6 +228,8 @@ function drawStarTwinkle(x, y) {
 }
 
 function signature(x, y) {
+
+    // function to draw the space invader signature.
 
     context.fillStyle = "#d8d97e";
     context.fillRect(x, y, 25, 50); // Scaled down from (100, 150, 50, 100)
